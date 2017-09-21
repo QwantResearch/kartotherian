@@ -1,0 +1,25 @@
+[Unit]
+Description=kartotherian - Renders map tiles
+After=network.target local-fs.target cassandra.service
+
+[Service]
+Type=simple
+LimitNOFILE=10000
+PIDFile=%t/kartotherian.pid
+User=qmap
+Group=qmap
+WorkingDirectory=/opt/kartotherian
+Environment="NODE_PATH='/opt/kartotherian/node_modules'" "KARTOTHERIAN_PORT=6533"
+ExecStart=/usr/bin/nodejs /opt/kartotherian/server.js -c /etc/kartotherian/config.yaml
+ExecStartPre=/usr/local/bin/cassandra.wait
+Restart=always
+RestartSec=5
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=kartotherian
+TimeoutStartSec=5
+TimeoutStopSec=60
+
+[Install]
+WantedBy=multi-user.target
+
