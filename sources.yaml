@@ -1,4 +1,4 @@
-# Download tiles on the fly from OSM
+#Tilerator service with OSM Postgis source
 gen:
   uri: http://eole.geostorm.eu:16534/gen/{z}/{x}/{y}.pbf
 
