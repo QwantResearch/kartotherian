@@ -32,6 +32,8 @@ v2view:
     source: {ref: v2}
 
 dyn:
+  public: true
+  formats: [pbf]
   uri: autogen://
   params:
     storage: {ref: v2}
