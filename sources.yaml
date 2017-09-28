@@ -67,6 +67,8 @@ osm-intl:  # This name is the default Kartotherian leaflet test app layer name
 
 mix:
   uri: demultiplexer://
+  public: true
+  formats: [pbf]
   params:
     source1: {ref: v2}
     from1: 0
