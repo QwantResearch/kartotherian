@@ -23,3 +23,7 @@ services:
 
       variables: /etc/kartotherian/variables.yaml
       sources: /etc/kartotherian/sources.yaml
+
+      snapshot:
+        geoshapeUrl: http://localhost:16534
+
