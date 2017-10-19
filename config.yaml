@@ -26,4 +26,5 @@ services:
 
       snapshot:
         geoshapeUrl: http://eole.geostorm.eu:16534
+        #maxAutoZoom: 18
 
