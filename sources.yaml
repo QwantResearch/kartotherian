@@ -27,7 +27,7 @@ v2view:
   maxwidth: 2048
   uri: vector://
   xml:
-    loader: "@kartotherian/osm-bright-style"
+    npmpath: ["@mapbox/mapbox-studio-osm-bright", "project.xml"]
   xmlSetParams:
     source: {ref: v2}
 
@@ -61,7 +61,7 @@ osm-intl:  # This name is the default Kartotherian leaflet test app layer name
   maxwidth: 2048
   uri: vector://
   xml:
-    loader: "@kartotherian/osm-bright-style"
+    npmpath: ["@mapbox/mapbox-studio-osm-bright", "project.xml"]
   xmlSetParams:
     source: {ref: oz}
 
