@@ -72,7 +72,7 @@
     "@kartotherian/babel": "^0.0.7",
     "@kartotherian/cassandra": "^0.0.15",
     "@kartotherian/layermixer": "^0.0.8",
-    "@kartotherian/overzoom": "^0.0.16",
+    "@kartotherian/overzoom": "^0.0.10",
     "@kartotherian/maki": "^0.0.10",
     "@kartotherian/layermixer": "^0.0.8",
     "@mapbox/mapbox-studio-osm-bright": "git+https://github.com/openmaptiles/mapbox-studio-osm-bright.tm2.git",
