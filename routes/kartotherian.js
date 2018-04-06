@@ -13,8 +13,7 @@ function startup(app) {
     return server.init({
       core,
       app,
-      // eslint-disable-next-line global-require,import/no-dynamic-require
-      requestHandlers: app.conf.requestHandlers.map(rh => require(rh)),
+      requestHandlers: core.loadNpmModules('requestHandlers')
     });
   }).return(); // avoid app.js's default route initialization
 }
