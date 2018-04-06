@@ -33,14 +33,14 @@
   "kartotherian": {
     "registerSourceLibs": [
       "tilelive-bridge",
-      "tilelive-vector",
+      "@kartotherian/tilelive-vector",
       "@kartotherian/autogen",
       "@kartotherian/babel",
       "@kartotherian/cassandra",
       "@kartotherian/demultiplexer",
       "@kartotherian/layermixer",
       "@kartotherian/overzoom",
-      "@kartotherian/tilelive-http",
+      "tilelive-http",
       "tilejson"
     ],
     "requestHandlers": [
