@@ -30,27 +30,6 @@
     "url": "https://phabricator.wikimedia.org/tag/maps/"
   },
   "homepage": "https://github.com/kartotherian/kartotherian",
-<<<<<<< dbe7d98e89dc06c60e262c21398ebbc9f58c5af2
-=======
-  "kartotherian": {
-    "registerSourceLibs": [
-      "tilelive-bridge",
-      "@kartotherian/tilelive-vector",
-      "@kartotherian/autogen",
-      "@kartotherian/babel",
-      "@kartotherian/cassandra",
-      "@kartotherian/demultiplexer",
-      "@kartotherian/layermixer",
-      "@kartotherian/overzoom",
-      "tilelive-http",
-      "tilejson"
-    ],
-    "requestHandlers": [
-      "@kartotherian/maki",
-      "@kartotherian/snapshot"
-    ]
-  },
->>>>>>> Update registered libs in package.json
   "dependencies": {
     "@kartotherian/autogen": "^0.0.10",
     "@kartotherian/babel": "^0.3.0",
@@ -84,7 +63,8 @@
     "preq": "^0.5.2",
     "service-runner": "^2.6.4",
     "tilelive-http": "~0.13.0",
-    "tilelive-tmstyle": "0.8.0"
+    "tilelive-tmstyle": "0.8.0",
+    "demultiplexer": "git+https://github.com/QwantResearch/demultiplexer.git"
   },
   "optionalDependencies": {
     "bunyan-prettystream": "*"
