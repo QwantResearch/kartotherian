@@ -7,7 +7,7 @@ const server = require('@kartotherian/server');
 function startup(app) {
   return startup.bootstrap(app).then(() => {
     const sources = new core.Sources();
-    return sources.init(app.conf);
+    return sources.init(app.conf.variables, app.conf.sources);
   }).then((sources) => {
     core.setSources(sources);
     return server.init({
