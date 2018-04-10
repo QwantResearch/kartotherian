@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/kartotherian/kartotherian.svg?branch=master)](https://travis-ci.org/kartotherian/kartotherian)
+
 # Maps Tile service for Wikipedia
 
 This code is cross-hosted at [gerrit](https://git.wikimedia.org/summary/maps%2Fkartotherian)
@@ -42,18 +44,6 @@ At this point, only "pin" is supported for the base. The color is a 3 digit or 6
 git clone https://github.com/kartotherian/kartotherian.git  # Clone the repository
 cd kartotherian
 ```
-
-Edit `package.json`
-* **Add** these lines to the `dependencies` section:
-```
-    "tilejson": "*",
-    "@kartotherian/tilelive-http": "^0.12.1",
-```
-* **Add** this line to the `registerSourceLibs` section:
-```
-    "@kartotherian/tilelive-http",
-```
-* **Remove** `kartotherian-geoshapes` line from `requestHandlers` section.
 
 ```
 npm install

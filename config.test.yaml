@@ -9,7 +9,7 @@ worker_heap_limit_mb: 250
 
 # Logger info
 logging:
-  level: trace
+  level: warn
 #  streams:
 #  # Use gelf-stream -> logstash
 #  - type: gelf
@@ -34,7 +34,7 @@ services:
       # interface: localhost # uncomment to only listen on localhost
       # more per-service config settings
       # the location of the spec, defaults to spec.yaml if not specified
-      spec: ./spec.template.yaml
+      spec: ./spec.yaml
       # allow cross-domain requests to the API (default '*')
       cors: '*'
       # to disable use:
@@ -64,7 +64,7 @@ services:
 
       # Kartotherian variables and sources
       variables: {}
-      sources: sources.dev.yaml
+      sources: sources.test.yaml
 
       modules:
       - "tilelive-bridge"
@@ -80,7 +80,6 @@ services:
       - "tilejson"
 
       requestHandlers:
-      - "@kartotherian/geoshapes"
       - "@kartotherian/maki"
       - "@kartotherian/snapshot"
 

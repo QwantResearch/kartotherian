@@ -1,11 +1,12 @@
 {
   "name": "kartotherian",
-  "version": "0.0.30",
+  "version": "0.0.35",
   "description": "Renders map tiles",
   "main": "./app.js",
   "scripts": {
     "start": "service-runner",
-    "test": "mocha",
+    "lint": "grunt lint",
+    "test": "grunt test",
     "docker-start": "service-runner docker-start",
     "docker-test": "service-runner docker-test",
     "coverage": "istanbul cover _mocha -- -R spec"
@@ -32,14 +33,14 @@
   "kartotherian": {
     "registerSourceLibs": [
       "tilelive-bridge",
-      "tilelive-vector",
+      "@kartotherian/tilelive-vector",
       "@kartotherian/autogen",
       "@kartotherian/babel",
       "@kartotherian/cassandra",
       "@kartotherian/demultiplexer",
       "@kartotherian/layermixer",
       "@kartotherian/overzoom",
-      "@kartotherian/tilelive-http",
+      "tilelive-http",
       "tilejson"
     ],
     "requestHandlers": [
@@ -62,30 +63,38 @@
     "mapnik": "~3.5.0",
     "tilelive": "~5.12.2",
     "tilelive-bridge": "~2.3.1",
-    "tilelive-vector": "~3.9.4",
+    "tilelive-http": "~0.13.0",
+    "@kartotherian/tilelive-vector": "~3.9.6",
     "tilejson": "^1.0.3",
-    "@kartotherian/core": "^0.0.23",
-    "@kartotherian/server": "^0.0.17",
+    "@kartotherian/core": "^0.0.27",
+    "@kartotherian/server": "^0.0.25",
     "@kartotherian/autogen": "^0.0.10",
     "@kartotherian/babel": "^0.0.7",
-    "@kartotherian/cassandra": "git+https://github.com/kartotherian/cassandra.git#8f46b73",
-    "demultiplexer": "git+https://github.com/QwantResearch/demultiplexer.git",
+    "@kartotherian/cassandra": "^0.0.15",
     "@kartotherian/layermixer": "^0.0.8",
     "@kartotherian/overzoom": "^0.0.10",
-    "@kartotherian/tilelive-http": "^0.12.1",
-    "@kartotherian/maki": "^0.0.8",
-    "snapshot": "git+https://github.com/QwantResearch/snapshot.git",
-    "@mapbox/mapbox-studio-osm-bright": "git+https://github.com/openmaptiles/mapbox-studio-osm-bright.tm2.git"
+    "@kartotherian/maki": "^0.0.10",
+    "@kartotherian/layermixer": "^0.0.8",
+    "@mapbox/mapbox-studio-osm-bright": "git+https://github.com/openmaptiles/mapbox-studio-osm-bright.tm2.git",
+    "demultiplexer": "git+https://github.com/QwantResearch/demultiplexer.git",
+    "snapshot": "git+https://github.com/QwantResearch/snapshot.git"
   },
   "optionalDependencies": {
     "bunyan-prettystream": "*"
   },
   "devDependencies": {
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-config-kartotherian": "^0.0.5",
     "extend": "^3.0.0",
+    "grunt": "^1.0.2",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-eslint": "^20.1.0",
+    "grunt-mocha-test": "^0.13.3",
     "istanbul": "^0.4.5",
-    "mocha": "^3.2.0",
-    "mocha-jshint": "^2.3.1",
+    "mocha": "^5.0.4",
     "mocha-lcov-reporter": "^1.3.0",
+    "request": "^2.85.0",
+    "request-promise": "^4.2.2",
     "swagger-router": "^0.5.6"
   },
   "deploy": {
