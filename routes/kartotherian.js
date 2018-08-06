@@ -7,13 +7,14 @@ const server = require('@kartotherian/server');
 function startup(app) {
   return startup.bootstrap(app).then(() => {
     const sources = new core.Sources();
-    return sources.init(app.conf.variables, app.conf.sources);
+    return sources.init(app.conf);
   }).then((sources) => {
     core.setSources(sources);
     return server.init({
       core,
       app,
-      requestHandlers: core.loadNpmModules('requestHandlers')
+      // eslint-disable-next-line global-require,import/no-dynamic-require
+      requestHandlers: app.conf.requestHandlers.map(rh => require(rh)),
     });
   }).return(); // avoid app.js's default route initialization
 }
