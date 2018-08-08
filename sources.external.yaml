@@ -1,6 +1,27 @@
 # Download tiles on the fly from wiki maps service
 gen:
   uri: https://maps.wikimedia.org/osm-pbf/{z}/{x}/{y}.pbf
+  setInfo:
+    vector_layers:
+      - id: landuse
+      - id: waterway
+      - id: water
+      - id: aeroway
+      - id: building
+      - id: road
+      - id: admin
+      - id: country_label
+      - id: place_label
+      - id: poi_label
+      - id: road_label
+
+babel:
+  uri: babel://
+  params:
+    source: {ref: gen}
+    tag: name
+    combineName: false
+    defaultLanguage: local
 
 # View tiles as generated directly from the database. Don't view zoom0-5
 osm-intl:
@@ -10,8 +31,12 @@ osm-intl:
   static: true
   maxheight: 2048
   maxwidth: 2048
-  uri: vector://
-  xml:
-    loader: "@kartotherian/osm-bright-style"
-  xmlSetParams:
-    source: {ref: gen}
+  uri: tmstyle://
+  yaml:
+    npm: ["@kartotherian/osm-bright-style", "project.yml"]
+  yamlSetParams:
+    source: {ref: babel}
+  defaultHeaders:
+    Cache-Control: 'no-cache, no-store, must-revalidate'
+    Pragma: no-cache
+    Expires: 0
