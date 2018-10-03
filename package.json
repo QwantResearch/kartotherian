@@ -35,6 +35,7 @@
     "@kartotherian/babel": "^0.3.0",
     "@kartotherian/cassandra": "^0.2.1",
     "@kartotherian/core": "https://github.com/QwantResearch/kartotherian_core.git#afe0a0a8",
+    "@kartotherian/demultiplexer": "https://github.com/QwantResearch/demultiplexer.git#807ef6fb2d",
     "@kartotherian/geoshapes": "^1.0.1",
     "@kartotherian/layermixer": "^0.0.8",
     "@kartotherian/maki": "1.0.0",
@@ -42,7 +43,7 @@
     "@kartotherian/osm-bright-style": "^4.0.1",
     "@kartotherian/overzoom": "^0.0.16",
     "@kartotherian/postgres": "^0.0.11",
-    "@kartotherian/server": "https://github.com/QwantResearch/kartotherian_server.git#b6e5e8680f",
+    "@kartotherian/server": "https://github.com/amatissart/kartotherian_server.git#disable-statics",
     "@kartotherian/snapshot": "^1.0.2",
     "@kartotherian/substantial": "^0.0.10",
     "@kartotherian/tilelive-tmsource": "~1.0.0",
@@ -59,12 +60,10 @@
     "express": "^4.15.2",
     "js-yaml": "^3.8.2",
     "mapnik": "~3.7.0",
-    "node-pre-gyp": "^0.6.34",
+    "node-pre-gyp": "^0.11.0",
     "preq": "^0.5.2",
     "service-runner": "^2.6.4",
-    "tilelive-http": "~0.13.0",
-    "tilelive-tmstyle": "0.8.0",
-    "demultiplexer": "git+https://github.com/QwantResearch/demultiplexer.git"
+    "tilelive-http": "~0.13.0"
   },
   "optionalDependencies": {
     "bunyan-prettystream": "*"
