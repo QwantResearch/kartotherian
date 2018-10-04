@@ -43,7 +43,7 @@
     "@kartotherian/osm-bright-style": "^4.0.1",
     "@kartotherian/overzoom": "^0.0.16",
     "@kartotherian/postgres": "^0.0.11",
-    "@kartotherian/server": "https://github.com/amatissart/kartotherian_server.git#disable-statics",
+    "@kartotherian/server": "https://github.com/QwantResearch/kartotherian_server.git#8871823b3b",
     "@kartotherian/snapshot": "^1.0.2",
     "@kartotherian/substantial": "^0.0.10",
     "@kartotherian/tilelive-tmsource": "~1.0.0",
