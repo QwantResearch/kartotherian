@@ -34,6 +34,15 @@ function initApp(options) {
             "default-src 'self'; object-src 'none'; media-src 'none'; style-src 'self'; script-src 'self'; frame-ancestors 'self'";
   }
 
+  // set error handler on metrics
+  // By default all errors from hot-shots (client for statsd) will propagate.
+  // See: https://github.com/brightcove/hot-shots/tree/v5.9.2#errors
+  if (app.conf.catchMetricsErrors && app.metrics.socket) {
+    app.metrics.socket.on('error', (error) => {
+      app.logger.log('warn', error);
+    });
+  }
+
   // set outgoing proxy
   if (app.conf.proxy) {
     process.env.HTTP_PROXY = app.conf.proxy;
