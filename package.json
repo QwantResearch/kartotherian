@@ -60,7 +60,7 @@
     "mapnik": "~3.7.0",
     "node-pre-gyp": "^0.11.0",
     "preq": "^0.5.7",
-    "service-runner": "^2.6.7",
+    "service-runner": "^2.6.10",
     "tilelive-http": "~0.13.0"
   },
   "optionalDependencies": {
