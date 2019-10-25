@@ -6,15 +6,17 @@ const tiles = require('./tiles');
 const info = require('./info');
 
 module.exports.init = function init(opts) {
+  const { app } = opts;
   return Promise.try(() => {
     const router = express.Router();
     const handlers = opts.requestHandlers || [];
-
-    handlers.unshift(tiles, info);
+    if (app.conf.exposeSourceInfo !== false) {
+      handlers.unshift(info)
+    }
+    handlers.unshift(tiles);
     return Promise.mapSeries(handlers, reqHandler => reqHandler(opts.core, router)).return(router);
   }).then((router) => {
     // Add before static to prevent disk IO on each tile request
-    const { app } = opts;
     const staticOpts = {
       setHeaders(res) {
         if (app.conf.cache) {
@@ -28,10 +30,12 @@ module.exports.init = function init(opts) {
 
     app.use('/', router);
 
-    // Compression is nativelly handled by the tiles, so only statics need its
-    app.use(compression({ threshold: 0 }));
-    app.use('/', express.static(pathLib.resolve(__dirname, '../static'), staticOpts));
-    app.use('/leaflet', express.static(pathLib.dirname(require.resolve('leaflet')), staticOpts));
+    if (app.conf.exposeMapUi !== false) {
+      // Compression is nativelly handled by the tiles, so only statics need it
+      app.use(compression({ threshold: 0 }));
+      app.use('/', express.static(pathLib.resolve(__dirname, '../static'), staticOpts));
+      app.use('/leaflet', express.static(pathLib.dirname(require.resolve('leaflet')), staticOpts));
+    }
 
     opts.core.metrics.increment('init');
   });

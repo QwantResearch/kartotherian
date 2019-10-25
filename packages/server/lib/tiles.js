@@ -56,8 +56,19 @@ function requestHandler(req, res, next) {
   let opts;
 
   return Promise.try(() => {
-    source = core.getPublicSource(params.src);
-
+    let p = Promise.resolve();
+    if (core.getConfiguration().reloadSourcesOnGetTile) {
+      const sources = core.getSources();
+      const src = sources.getSourceById(params.src, true, true);
+      if (src && src.isDisabled) {
+        // Reload all sources
+        p = p.then(() => sources.loadSourcesAsync(sources.getSourceConfigs()));
+      }
+    }
+    return p.then(() => {
+      source = core.getPublicSource(params.src);
+    });
+  }).then(() => {
     if (!_.contains(source.formats, params.format)) {
       throw new Err('Format %s is not known', params.format).metrics('err.req.format');
     }
@@ -95,27 +106,59 @@ function requestHandler(req, res, next) {
 
     // fixme: Force all tiles to be treated as vector
     opts.treatAsVector = true;
+    return source.getHandler();
+  })
+    .catch(err => core.reportRequestError(err, res))
+    .then((handler) => {
+      if (handler === undefined) {
+        return undefined;
+      }
 
-    return source.getHandler().getAsync(opts);
-  }).then((result) => {
-    let mx;
+      return handler.getAsync(opts).then((result) => {
+        core.setResponseHeaders(res, source, result.headers);
 
-    core.setResponseHeaders(res, source, result.headers);
+        if (params.format === 'json') {
+        // Allow JSON to be shortened to simplify debugging
+          res.json(filterJson(req.query, result.data));
+        } else {
+          res.send(result.data);
+        }
 
-    if (params.format === 'json') {
-      // Allow JSON to be shortened to simplify debugging
-      res.json(filterJson(req.query, result.data));
-    } else {
-      res.send(result.data);
-    }
+        let mx = util.format('req.%s.%s.%s', params.src, params.z, params.format);
+        if (params.scale) {
+        // replace '.' with ',' -- otherwise grafana treats it as a divider
+          mx += `.${params.scale.toString().replace('.', ',')}`;
+        }
+        core.metrics.endTiming(mx, start);
+      });
+    })
+    .catch((err) => {
+      if (core.isNoTileError(err)) {
+        /* eslint-disable-next-line no-throw-literal */
+        throw {
+          /* This object will be caught by kartotherian
+            custom error handler to log and build
+            a proper HTTP error */
+          status: 404,
+          message: err.message,
+          type: err.name,
+        };
+      }
+      if (
+        core.getConfiguration().disableSourceOnError
+        && shouldDisableSource(err)
+      ) {
+        core.log('warn', `Disabling source ${params.src} because of ${err}`)
+        source.isDisabled = true
+      }
+      throw err;
+    })
+    .catch(next);
+}
 
-    mx = util.format('req.%s.%s.%s', params.src, params.z, params.format);
-    if (params.scale) {
-      // replace '.' with ',' -- otherwise grafana treats it as a divider
-      mx += `.${params.scale.toString().replace('.', ',')}`;
-    }
-    core.metrics.endTiming(mx, start);
-  }).catch(err => core.reportRequestError(err, res)).catch(next);
+function shouldDisableSource(error){
+  const cassandra = require('cassandra-driver')
+  return error instanceof cassandra.errors.NoHostAvailableError
 }
 
 module.exports = function tiles(cor, router) {
