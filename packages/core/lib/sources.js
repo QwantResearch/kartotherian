@@ -18,6 +18,7 @@ const sourceByRefProtocol = 'sourceref:';
 function Sources() {
   this._variables = {};
   this._sources = {};
+  this._sourcesIds = [];
 
   // Set up a ref protocol resolver - this way its enough to specify the source
   // by sourceref:///?ref=sourceID URL, instead of a full source URL.
@@ -72,8 +73,12 @@ Sources.prototype.init = function init(conf) {
     }
     _.each(conf.modules, core.registerTileliveModule);
     self.loadVariablesAsync(self._localOrExternalDataAsync(conf.variables, 'variables'));
-  }).then(() =>
-    self.loadSourcesAsync(self._localOrExternalDataAsync(conf.sources, 'sources'))).return(self);
+  })
+    .then(() => self._localOrExternalDataAsync(conf.sources, 'sources'))
+    .then((sourcesConf) => {
+      self._sourcesIds = Object.keys(sourcesConf);
+      return self.loadSourcesAsync(sourcesConf);
+    }).return(self);
 };
 
 /**
@@ -98,8 +103,13 @@ Sources.prototype.loadSourcesAsync = function loadSourcesAsync(sources) {
     if (!_.isObject(sources) || _.isArray(sources)) {
       throw new Err('Sources must be an object');
     }
-    return Promise.each(
+    const sortedSourcesIds = _.sortBy(
+      // Sort sources keys respecting dependency order
       Object.keys(sources),
+      id => _.indexOf(self._sourcesIds, id)
+    );
+    return Promise.each(
+      sortedSourcesIds,
       key => self._loadSourceAsync(sources[key], key)
     );
   });
@@ -214,6 +224,7 @@ Sources.prototype._loadSourceAsync = function _loadSourceAsync(src, sourceId) {
     checkType(src, 'maxheight', 'integer');
     checkType(src, 'setInfo', 'object');
     checkType(src, 'overrideInfo', 'object');
+    checkType(src, 'loadTimeout', 'integer', 5000); // ms
 
     // Add URI query values, e.g.  ?password=...
     if (checkType(src, 'params', 'object')) {
@@ -234,7 +245,7 @@ Sources.prototype._loadSourceAsync = function _loadSourceAsync(src, sourceId) {
       return yamlLoader.load(uri.protocol);
     }
     return uri;
-  }).then(uri => core.loadSource(uri)).then((handler) => {
+  }).then(uri => core.loadSource(uri)).timeout(src.loadTimeout).then((handler) => {
     const info = {
       // This is the only required field per spec, and it can be overwritten
       // https://github.com/mapbox/tilejson-spec
@@ -264,6 +275,9 @@ Sources.prototype._loadSourceAsync = function _loadSourceAsync(src, sourceId) {
 
     // eslint-disable-next-line no-param-reassign
     src.getHandler = () => handler;
+
+    // eslint-disable-next-line no-param-reassign
+    src.isDisabled = false;
   })
     .catch((err) => {
       // eslint-disable-next-line no-param-reassign
