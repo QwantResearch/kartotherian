@@ -14,7 +14,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@kartotherian/err": "^0.0.3",
+    "@kartotherian/err": "^0.0.4",
     "@kartotherian/input-validator": "^0.0.6",
     "@kartotherian/module-loader": "^0.1.0",
     "bluebird": "^3.5.0",

@@ -20,7 +20,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@kartotherian/err": "^0.0.3",
+    "@kartotherian/err": "^0.0.4",
     "@kartotherian/input-validator": "^0.0.6",
     "bluebird": "^3.5.0",
     "js-yaml": "^3.8.2",

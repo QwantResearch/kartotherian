@@ -24,6 +24,6 @@
     "preq": "^0.5.2",
     "topojson": "^2.2.0",
     "wd-type-parser": "^0.0.3",
-    "@kartotherian/err": "^0.0.3"
+    "@kartotherian/err": "^0.0.4"
   }
 }
