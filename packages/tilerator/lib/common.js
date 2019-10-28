@@ -24,17 +24,25 @@ function setSources(job, sources) {
   const allSources = sources.getSourceConfigs();
   let i = 0;
 
-  // eslint-disable-next-line no-param-reassign
-  job.sources = {};
-  while (i < ids.length) {
-    const id = ids[i++];
-    const source = allSources[id];
-    if (!source) { throw new Err('Source ID %s is not defined', id); }
-    if (source.isDisabled) { throw new Err('Source ID %s is disabled', id); }
-    // eslint-disable-next-line no-param-reassign
-    job.sources[id] = source;
-    _.each(source, recursiveIter);
+  let res = Promise.resolve();
+  if (ids.some(id => allSources[id].isDisabled)) {
+    // Reload all sources
+    res = res.then(() => sources.loadSourcesAsync(allSources));
   }
+
+  return res.then(() => {
+    // eslint-disable-next-line no-param-reassign
+    job.sources = {};
+    while (i < ids.length) {
+      const id = ids[i++];
+      const source = allSources[id];
+      if (!source) { throw new Err('Source ID %s is not defined', id); }
+      if (source.isDisabled) { throw new Err('Source ID %s is disabled', id); }
+      // eslint-disable-next-line no-param-reassign
+      job.sources[id] = source;
+      _.each(source, recursiveIter);
+    }
+  });
 }
 
 function paramsToJob(params, sources) {
@@ -85,9 +93,7 @@ function paramsToJob(params, sources) {
   } else if (filter1) {
     job.filters = filter1;
   }
-  setSources(job, sources);
-
-  return job;
+  return setSources(job, sources).then(() => job);
 }
 
 function enqueJob(queue, job, params) {

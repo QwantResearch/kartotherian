@@ -171,3 +171,16 @@ The tool may also be used to export a list of tiles that would be generated. Thi
 ```
 node scripts/tileshell.js --config config.yaml -j.generatorId v5 -j.zoom 3 --dumptiles listOfZoom3TilesInV5.txt
 ```
+
+## Generate .mbtiles using `tileshell`
+Running `script/tileshell.js` with `--writeMbtiles <path>` option will store tiles in a local .mbtiles file.
+Note that jobs are processed synchronously.
+
+For example to generate a file with all tiles in Ivory Coast (zoom 0 to 13):
+```
+# All tiles on the first zoom levels (0 to 4)
+node scripts/tileshell.js --config /etc/tilerator/config.yaml --source /etc/tilerator/sources.yaml -j.fromZoom 0 -j.beforeZoom 5 -j.generatorId ozgen-lite --writeMbtiles ivorycoast.mbtiles
+
+# All tiles in Ivory Coast (zooms 5 to 13)
+node scripts/tileshell.js --config /etc/tilerator/config.yaml --source /etc/tilerator/sources.yaml -j.zoom 5 -j.x 15 -j.y 15 -j.fromZoom 5 -j.beforeZoom 14 -j.generatorId ozgen-lite --writeMbtiles ivorycoast.mbtiles
+```

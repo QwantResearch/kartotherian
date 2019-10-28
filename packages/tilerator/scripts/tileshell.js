@@ -14,7 +14,8 @@ const tilerator = require('../routes/tilerator');
 const Queue = require('../lib/Queue');
 const common = require('../lib/common');
 
-const { JobProcessor } = jplib;
+const { JobProcessor, Job } = jplib;
+const MBTILES_SOURCE_ID = 'mbtiles-file';
 
 /**
  * Convert relative path to absolute, assuming current file is one
@@ -117,6 +118,13 @@ const args = yargs
       describe: 'be verbose',
       type: 'boolean',
     },
+    writeMbtiles: {
+      describe: 'File that will be used as .mbtiles storage (overwrites j.storageId and enforces j.parts=1).\n'
+              + 'Jobs will be processed synchronously.',
+      type: 'string',
+      nargs: 1,
+      coerce: normalizePath,
+    }
   })
   .help('h')
   .alias('h', 'help')
@@ -173,33 +181,67 @@ if (args.dumptiles) {
   }
 }
 
+if (args.writeMbtiles) {
+  app.conf.sources.push({
+    [MBTILES_SOURCE_ID]: {
+      uri: `mbtiles://${args.writeMbtiles}`,
+      formats: ['pbf'],
+    },
+  });
+  args.j.storageId = MBTILES_SOURCE_ID;
+  args.j.parts = 1;
+}
+
+function processSyncJob(j, sources) {
+  // eslint-disable-next-line no-console
+  console.log(`Processing job Z=${j.zoom}`, ` size=${j.size}`);
+  const jp = new JobProcessor(sources, { data: j }, app.metrics);
+  jp.initSources();
+  jp.tileStore.startWriting(() => undefined);
+  jp.initSources = (() => undefined); // Ugly hack so that sources are not reinitialized
+  return new Promise(((resolve, reject) => {
+    jp.runAsync()
+      .then(() =>
+        jp.tileStore.stopWriting(() => {
+          resolve();
+        }))
+      .catch(reject);
+  }));
+}
+
 tilerator.bootstrap(app).then(() => {
   const sources = new core.Sources();
   return sources.init(app.conf);
 }).then((sources) => {
   core.setSources(sources);
   if (args.j) {
-    const job = common.paramsToJob(args.j, sources);
+    return common.paramsToJob(args.j, sources).then((job) => {
+      if (args.writeMbtiles) {
+        const jpJob = new Job(job);
+        const jobs = jpJob.expandJobs();
+        // eslint-disable-next-line no-console
+        console.log(`${jobs.length} jobs to run, writing to ${args.writeMbtiles}`);
+        return Promise.resolve(jobs).each(j => processSyncJob(j, sources));
+      }
 
-    if (args.dumptiles) {
-      const jp = new JobProcessor(sources, { data: job }, app.metrics);
+      if (args.dumptiles) {
+        const jp = new JobProcessor(sources, { data: job }, app.metrics);
+        const outputStream = fs.createWriteStream(args.dumptiles, { flags: args.dumpoverride ? 'w' : 'wx' });
 
-      const outputStream = fs.createWriteStream(args.dumptiles, { flags: args.dumpoverride ? 'w' : 'wx' });
+        jp.initSources();
+        const iterator = jp.createMainIterator();
 
-      jp.initSources();
-      const iterator = jp.createMainIterator();
+        const opt = {
+          iterator, outputStream, zoom: job.zoom, rawidx: args.dumprawidx,
+        };
+        return dumpTiles(opt).then(() => outputStream.endAsync());
+      }
 
-      const opt = {
-        iterator, outputStream, zoom: job.zoom, rawidx: args.dumprawidx,
-      };
-      return dumpTiles(opt).then(() => outputStream.endAsync());
-    }
-
-    // Make sure not to start the kueui
-    app.conf.daemonOnly = true;
-    const queue = new Queue(app);
-
-    return common.enqueJob(queue, job, args.j);
+      // Make sure not to start the kueui
+      app.conf.daemonOnly = true;
+      const queue = new Queue(app);
+      return common.enqueJob(queue, job, args.j);
+    });
   }
   return undefined;
 }).catch((err) => {

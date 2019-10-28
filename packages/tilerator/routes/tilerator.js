@@ -90,17 +90,15 @@ function onVariables(req, res) {
 }
 
 function onEnque(req, res) {
+  const params = req.query;
   reportAsync(res, () => Promise.try(() => {
     if (typeof req.body === 'string') {
       return updateSourcesFromYaml(req.body);
     }
     return undefined;
-  }).then(() => {
-    const params = req.query;
-    const job = common.paramsToJob(params, core.getSources());
-
-    return common.enqueJob(queue, job, params);
-  }));
+  })
+    .then(() => common.paramsToJob(params, core.getSources()))
+    .then(job => common.enqueJob(queue, job, params)));
 }
 
 function onStop(req, res) {
