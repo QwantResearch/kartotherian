@@ -13,9 +13,5 @@
   "bugs": "https://github.com/kartotherian/err/issues",
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {},
-  "devDependencies": {
-    "mocha": "^3.4.2"
   }
 }

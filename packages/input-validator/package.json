@@ -20,11 +20,8 @@
     "access": "public"
   },
   "dependencies": {
-    "underscore": "^1.8.3",
+    "@kartotherian/err": "file:../err",
     "quadtile-index": "^0.0.6",
-    "@kartotherian/err": "^0.0.4"
-  },
-  "devDependencies": {
-    "mocha": "^3.2.0"
+    "underscore": "^1.8.3"
   }
 }

@@ -18,17 +18,17 @@
   },
   "homepage": "https://github.com/kartotherian/snapshot",
   "dependencies": {
-    "@kartotherian/abaculus": "^3.0.1",
+    "@kartotherian/abaculus": "file:../abaculus",
+    "@kartotherian/err": "file:../err",
+    "@kartotherian/input-validator": "file:../input-validator",
+    "@mapbox/geojson-mapnikify": "^1.1.0",
+    "@mapbox/tilelive-overlay": "1.0.0",
+    "@wikimedia/mapdata": "^0.5.0",
     "bluebird": "^3.5.0",
     "domain-validator": "^0.0.5",
-    "@mapbox/geojson-mapnikify": "^1.1.0",
     "leaflet-headless": "^0.2.5",
     "mwapi": "^0.0.10",
-    "@mapbox/tilelive-overlay": "1.0.0",
-    "underscore": "^1.8.3",
-    "@kartotherian/err": "^0.0.4",
-    "@kartotherian/input-validator": "^0.0.6",
-    "@wikimedia/mapdata": "^0.5.0"
+    "underscore": "^1.8.3"
   },
   "optionalDependencies": {
     "sphericalmercator": "^1.0.5"

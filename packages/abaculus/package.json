@@ -17,9 +17,6 @@
     "@mapbox/sphericalmercator": "1.0.x",
     "d3-queue": "^2.0.2"
   },
-  "devDependencies": {
-    "mocha": "2.x"
-  },
   "peerDependencies": {
     "mapnik": "~3.7.0"
   }

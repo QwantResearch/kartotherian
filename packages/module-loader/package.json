@@ -20,14 +20,11 @@
     "access": "public"
   },
   "dependencies": {
-    "@kartotherian/err": "^0.0.4",
-    "@kartotherian/input-validator": "^0.0.6",
+    "@kartotherian/err": "file:../err",
+    "@kartotherian/input-validator": "file:../input-validator",
     "bluebird": "^3.5.0",
     "js-yaml": "^3.8.2",
     "libxmljs": "0.19.0",
     "underscore": "^1.8.3"
-  },
-  "devDependencies": {
-    "mocha": "^5.2.0"
   }
 }
