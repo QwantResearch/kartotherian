@@ -1,0 +1,84 @@
+{
+  "name": "kartotherian",
+  "version": "1.0.0",
+  "description": "Renders map tiles",
+  "main": "./app.js",
+  "scripts": {
+    "start": "service-runner",
+    "lint": "grunt lint",
+    "test": "grunt test",
+    "docker-start": "service-runner docker-start",
+    "docker-test": "service-runner docker-test",
+    "coverage": "istanbul cover _mocha -- -R spec"
+  },
+  "repository": "kartotherian/kartotherian",
+  "keywords": [
+    "REST",
+    "API",
+    "service template",
+    "MediaWiki"
+  ],
+  "author": "Yuri Astrakhan <YuriAstrakhan@gmail.com>",
+  "contributors": [
+    "Max Semenik <msemenik@wikimedia.org>"
+  ],
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://phabricator.wikimedia.org/tag/maps/"
+  },
+  "homepage": "https://github.com/kartotherian/kartotherian",
+  "dependencies": {
+    "@kartotherian/autogen": "file:../autogen",
+    "@kartotherian/babel": "file:../babel",
+    "@kartotherian/cassandra": "file:../cassandra",
+    "@kartotherian/core": "file:../core",
+    "@kartotherian/layermixer": "file:../layermixer",
+    "@kartotherian/osm-bright-source": "^1.0.4",
+    "@kartotherian/osm-bright-style": "^4.0.1",
+    "@kartotherian/overzoom": "file:../overzoom",
+    "@kartotherian/postgres": "file:../postgres",
+    "@kartotherian/server": "file:../server",
+    "@kartotherian/substantial": "file:../substantial",
+    "@kartotherian/tilelive-tmsource": "file:../tilelive-tmsource",
+    "@mapbox/tilejson": "^1.0.3",
+    "@mapbox/tilelive": "~5.12.2",
+    "@mapbox/tilelive-bridge": "~3.1.0",
+    "acorn": "^6.0.4",
+    "bluebird": "^3.5.3",
+    "body-parser": "^1.17.1",
+    "bunyan": "^1.8.9",
+    "cassandra-uuid": "^0.0.2",
+    "compression": "^1.6.2",
+    "domino": "^1.0.28",
+    "express": "^4.16.4",
+    "js-yaml": "^3.8.2",
+    "mapnik": "~3.7.0",
+    "node-pre-gyp": "^0.11.0",
+    "preq": "^0.5.7",
+    "service-runner": "^2.6.10",
+    "tilelive-http": "~0.13.0"
+  },
+  "optionalDependencies": {
+    "bunyan-prettystream": "*"
+  },
+  "deploy": {
+    "node": "6.11",
+    "target": "debian",
+    "dependencies": {
+      "_all": [
+        "libcairo2-dev",
+        "libgif-dev",
+        "libpango1.0-dev"
+      ],
+      "ubuntu": [
+        "libjpeg62-dev"
+      ],
+      "debian": [
+        "libjpeg62-turbo-dev"
+      ]
+    }
+  }
+}

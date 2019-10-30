@@ -1,0 +1,27 @@
+{
+  "name": "@kartotherian/input-validator",
+  "version": "0.0.6",
+  "description": "Functions to assert input correctness for Kartotherian",
+  "main": "validator.js",
+  "scripts": {
+    "test": "mocha",
+    "preversion": "npm test"
+  },
+  "repository": "kartotherian/input-validator",
+  "keywords": [
+    "kartotherian",
+    "input",
+    "validation"
+  ],
+  "author": "Yuri Astrakhan <YuriAstrakhan@gmail.com>",
+  "license": "MIT",
+  "bugs": "https://github.com/kartotherian/input-validator/issues",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@kartotherian/err": "file:../err",
+    "quadtile-index": "^0.0.6",
+    "underscore": "^1.8.3"
+  }
+}

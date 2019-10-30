@@ -1,0 +1,34 @@
+{
+  "name": "@kartotherian/jobprocessor",
+  "version": "1.0.1",
+  "description": "Processes tile generation jobs",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "preversion": "npm test"
+  },
+  "repository": "kartotherian/jobprocessor",
+  "keywords": [
+    "kartotherian",
+    "tilerator"
+  ],
+  "author": "Yuri Astrakhan <YuriAstrakhan@gmail.com>",
+  "license": "MIT",
+  "bugs": "https://phabricator.wikimedia.org/tag/maps/",
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/kartotherian/jobprocessor",
+  "dependencies": {
+    "@kartotherian/core": "file:../core",
+    "@kartotherian/err": "file:../err",
+    "@kartotherian/input-validator": "file:../input-validator",
+    "bluebird": "^3.5.0",
+    "event-stream": "^3.3.4",
+    "numeral": "^2.0.5",
+    "promistreamus": "^0.1.14",
+    "quadtile-index": "^0.0.6",
+    "tmp-promise": "^1.0.3",
+    "underscore": "^1.8.3"
+  }
+}

@@ -1,0 +1,25 @@
+[Unit]
+Description=tilerator - Map tiles pre-generation service
+After=network.target local-fs.target
+
+[Service]
+Type=simple
+LimitNOFILE=10000
+PIDFile=%t/tilerator.pid
+User=qmap
+Group=qmap
+WorkingDirectory=/opt/tilerator
+Environment="NODE_PATH='/opt/tilerator/node_modules'" "TILERATOR_PORT=16534"
+ExecStart=/usr/bin/nodejs /opt/tilerator/server.js -c /etc/tilerator/config.yaml
+ExecStartPre=/usr/local/bin/cassandra.wait
+Restart=always
+RestartSec=5
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=tilerator
+TimeoutStartSec=5
+TimeoutStopSec=60
+
+[Install]
+WantedBy=multi-user.target
+

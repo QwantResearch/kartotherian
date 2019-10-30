@@ -1,0 +1,36 @@
+{
+  "name": "@kartotherian/babel",
+  "version": "0.3.1",
+  "description": "Tile source to support multilingual maps",
+  "main": "lib/Babel.js",
+  "scripts": {
+    "test": "grunt test",
+    "preversion": "npm test"
+  },
+  "repository": "kartotherian/babel",
+  "keywords": [
+    "kartotherian",
+    "tilelive"
+  ],
+  "author": "Yuri Astrakhan <YuriAstrakhan@gmail.com>",
+  "license": "Apache-2.0",
+  "bugs": "https://github.com/kartotherian/babel/issues",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@kartotherian/err": "file:../err",
+    "@kartotherian/input-validator": "file:../input-validator",
+    "bluebird": "^3.5.1",
+    "language-scripts": "^1.0.2",
+    "pbf": "^3.1.0",
+    "tilelive-promise": "^2.0.0",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "@kartotherian/core": "file:../core"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  }
+}

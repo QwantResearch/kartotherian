@@ -1,0 +1,116 @@
+{
+  "name": "tilerator",
+  "version": "1.1.1",
+  "description": "Map tiles pre-generation service",
+  "main": "./app.js",
+  "scripts": {
+    "start": "service-runner",
+    "test": "grunt test",
+    "docker-start": "service-runner docker-start",
+    "docker-test": "service-runner docker-test",
+    "coverage": "istanbul cover _mocha -- -R spec"
+  },
+  "repository": "kartotherian/tilerator",
+  "keywords": [
+    "REST",
+    "API",
+    "service template",
+    "MediaWiki"
+  ],
+  "author": "Yuri Astrakhan <YuriAstrakhan@gmail.com>",
+  "contributors": [
+    "Max Semenik <msemenik@wikimedia.org>"
+  ],
+  "license": "Apache-2.0",
+  "bugs": "https://github.com/kartotherian/tilerator/issues",
+  "homepage": "https://github.com/kartotherian/tilerator",
+  "dependencies": {
+    "@kartotherian/autogen": "file:../autogen",
+    "@kartotherian/babel": "file:../babel",
+    "@kartotherian/cassandra": "file:../cassandra",
+    "@kartotherian/core": "file:../core",
+    "@kartotherian/err": "file:../err",
+    "@kartotherian/input-validator": "file:../input-validator",
+    "@kartotherian/jobprocessor": "file:../jobprocessor",
+    "@kartotherian/layermixer": "file:../layermixer",
+    "@kartotherian/osm-bright-source": "^1.0.4",
+    "@kartotherian/osm-bright-style": "^4.0.1",
+    "@kartotherian/overzoom": "file:../overzoom",
+    "@kartotherian/postgres": "file:../postgres",
+    "@kartotherian/server": "file:../server",
+    "@kartotherian/substantial": "file:../substantial",
+    "@kartotherian/tilelive-tmsource": "file:../tilelive-tmsource",
+    "@kartotherian/tilelive-vector": "file:../tilelive-vector",
+    "@mapbox/mbtiles": "^0.10.0",
+    "@mapbox/tilelive": "~5.12.2",
+    "@mapbox/tilelive-bridge": "~3.1.0",
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.1",
+    "bunyan": "^1.8.1",
+    "cassandra-uuid": "^0.0.2",
+    "compression": "^1.6.1",
+    "domino": "^1.0.28",
+    "express": "^4.13.4",
+    "heapdump": "*",
+    "htcp-purge": "^0.1.2",
+    "js-yaml": "^3.8.2",
+    "kue": "^0.11.0",
+    "kue-ui-express": "^1.0.2",
+    "mapnik": "~3.7.2",
+    "minimist": "0.2.*",
+    "preq": "^0.5.2",
+    "quadtile-index": "^0.0.6",
+    "service-runner": "^2.6.4",
+    "tilelive-tmstyle": "0.8.0",
+    "underscore": "^1.8.3",
+    "why-is-node-running": "^1.2.2",
+    "yargs": "^5.0.0"
+  },
+  "optionalDependencies": {
+    "bunyan-prettystream": "*"
+  },
+  "deploy": {
+    "node": "6.11",
+    "target": "debian",
+    "install_opts": [
+      "--build-from-source=mapnik",
+      "--fallback-to-build=false"
+    ],
+    "dependencies": {
+      "_all": [
+        "libcairo2-dev",
+        "libgif-dev",
+        "libpango1.0-dev"
+      ],
+      "ubuntu": [
+        "libjpeg62-dev"
+      ],
+      "debian": [
+        "libjpeg62-turbo-dev",
+        "fonts-dejavu",
+        "libboost-filesystem-dev",
+        "libboost-program-options-dev",
+        "libboost-regex-dev",
+        "libboost-system-dev",
+        "libboost-thread-dev",
+        "libgdal-dev",
+        "libicu-dev",
+        "libpq-dev",
+        "libcurl4-gnutls-dev",
+        "libproj-dev",
+        "libtiff-dev",
+        "libwebp5",
+        {
+          "repo_url": "https://apt.wikimedia.org/wikimedia",
+          "release": "jessie-wikimedia",
+          "pool": "backports",
+          "packages": [
+            "libmapbox-variant-dev",
+            "libmapnik-dev",
+            "mapnik-utils"
+          ]
+        }
+      ]
+    }
+  }
+}
