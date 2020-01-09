@@ -18,6 +18,6 @@
     "d3-queue": "^2.0.2"
   },
   "peerDependencies": {
-    "mapnik": "~3.7.0"
+    "mapnik": "~4.3.1"
   }
 }

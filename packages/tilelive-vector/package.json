@@ -29,7 +29,7 @@
     "underscore": "~1.8.0"
   },
   "peerDependencies": {
-    "mapnik": "~3.7.0"
+    "mapnik": "~4.3.1"
   },
   "scripts": {
     "test": "tape test/*.js",
