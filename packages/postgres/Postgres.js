@@ -119,7 +119,7 @@ PostgresStore.prototype.getTile = function(z, x, y, callback) {
 
 PostgresStore.prototype.putInfo = function(data, callback) {
     // hack: Store source info under zoom -1 with ID 0
-    return this._storeDataAsync(-1, 0, new Buffer(JSON.stringify(data))).nodeify(callback);
+    return this._storeDataAsync(-1, 0, Buffer.from(JSON.stringify(data))).nodeify(callback);
 };
 
 PostgresStore.prototype.getInfo = function(callback) {
