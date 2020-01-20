@@ -9,8 +9,17 @@ var _ = require("underscore"),
     Bridge = require("@mapbox/tilelive-bridge"),
     carto = require("carto"),
     mapnik = require("mapnik"),
-    mapnikref = require('mapnik-reference').load(mapnik.versions.mapnik),
-    yaml = require("js-yaml");
+    yaml = require("js-yaml"),
+    mapnikref;
+
+try {
+  mapnikref = require('mapnik-reference').load(mapnik.versions.mapnik);
+} catch(err){
+  // Mapnik v4 is not currently supported by mapnik-reference.
+  // Fallback to an older schema, as new features are not used anyway.
+  mapnikref = require('mapnik-reference').load('3.0.22');
+}
+
 
 var tm = {};
 

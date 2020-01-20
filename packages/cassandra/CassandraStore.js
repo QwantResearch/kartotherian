@@ -162,7 +162,7 @@ CassandraStore.prototype.getTile = function(z, x, y, callback) {
 
 CassandraStore.prototype.putInfo = function(data, callback) {
     // hack: Store source info under zoom -1 with ID 0
-    return this._storeDataAsync(-1, 0, new Buffer(JSON.stringify(data))).nodeify(callback);
+    return this._storeDataAsync(-1, 0, Buffer.from(JSON.stringify(data))).nodeify(callback);
 };
 
 CassandraStore.prototype.getInfo = function(callback) {
