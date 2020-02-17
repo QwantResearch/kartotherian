@@ -278,6 +278,12 @@ JobProcessor.prototype.jobProcessorAsync = function() {
         }
         // generate tile and repeat
         // if timeout is 0 or not specified, e.g. null, keep old behavior
+        //
+        // NOTE: This function builds recursively chained promises.
+        // This could lead to memory exhaustion, depending on Promise internal
+        // implementation. Fortunately, Bluebird implements a tail-call optimization.
+        // So, it doesn't cause a problem, providing that the recursive call is
+        // effectively the last one in the function.
         if (!this.tileTimeOut){
             return self.processOneTileAsync(iterValue).then(() => {
                 if (self.isShuttingDown) {
@@ -287,14 +293,16 @@ JobProcessor.prototype.jobProcessorAsync = function() {
             });
         } else {
             // set timeout for tile process in case mapnik get stucked
-            return self.processOneTileAsync(iterValue).timeout(this.tileTimeOut).then(() => {
-                if (self.isShuttingDown) {
-                    throw new Err('Shutting down');
-                }
-                return self.jobProcessorAsync();
-            }).catch(Promise.TimeoutError, function(e) {
-                throw new Err("Tile processing timed out");
-            });
+            return self.processOneTileAsync(iterValue).timeout(this.tileTimeOut)
+                .catch(Promise.TimeoutError, function(e) {
+                    throw new Err('Tile processing timed out');
+                })
+                .then(() => {
+                    if (self.isShuttingDown) {
+                        throw new Err('Shutting down');
+                    }
+                    return self.jobProcessorAsync();
+                });
         }
     });
 };
