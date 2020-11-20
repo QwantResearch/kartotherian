@@ -226,9 +226,11 @@ function addJobsFromSortedFile(filepath, options, addJobCallback) {
                 .on('end', function () {
                     try {
                         addJob();
-                        resolve(Promise.all(jobPromises).then(function (titles) {
-                            return [].concat.apply([], titles).sort();
-                        }));
+                        Promise.all(jobPromises)
+                            .then(function (titles) {
+                                return [].concat.apply([], titles).sort();
+                            })
+                            .then(resolve);
                     } catch (err) {
                         reject(err);
                     }
@@ -283,7 +285,6 @@ function fileParser(filepath, options, addJobCallback) {
                 return tempFiles2.length > 0 ? sortFile(tempFiles2, cleanupList) : false;
             }).then(function (sortedFile) {
                 if (sortedFile) {
-                    cleanupList.push(sortedFile);
                     return addJobsFromSortedFile(sortedFile, options, addJobCallback);
                 } else {
                     return [];
