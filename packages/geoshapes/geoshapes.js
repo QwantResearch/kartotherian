@@ -2,7 +2,7 @@
 
 let info = require('./package.json'),
     Promise = require('bluebird'),
-    topojson = require('topojson'),
+    topojson = require('topojson-server'),
     postgres = require('pg-promise')({promiseLib: Promise}),
     preq = require('preq'),
     Err = require('@kartotherian/err'),
