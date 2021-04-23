@@ -60,7 +60,7 @@
     "minimist": "0.2.*",
     "preq": "^0.5.2",
     "quadtile-index": "^0.0.6",
-    "service-runner": "^2.6.4",
+    "service-runner": "~2.7.8",
     "underscore": "^1.8.3",
     "why-is-node-running": "^1.2.2",
     "yargs": "^5.0.0"
