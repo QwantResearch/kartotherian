@@ -70,7 +70,6 @@ services:
 
       modules:
       - "tilelive-http"
-      - "tilelive-tmstyle"
       - "@kartotherian/autogen"
       - "@kartotherian/babel"
       - "@kartotherian/cassandra"
@@ -78,12 +77,12 @@ services:
       - "@kartotherian/overzoom"
       - "@kartotherian/postgres"
       - "@kartotherian/substantial"
+      - "@kartotherian/tilelive-tmsource"
       - "@kartotherian/tilelive-vector"
       - "@mapbox/tilejson"
 
       requestHandlers:
       - "@kartotherian/maki"
-      - "@kartotherian/snapshot"
 
       geoshapes:
         allowUserQueries: true
