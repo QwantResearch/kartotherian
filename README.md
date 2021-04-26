@@ -10,4 +10,4 @@ To install the dependencies for all modules, run `npm install` from the project 
 
 The Kartotherian and Tilerator services can then be started accoring to the instructions provided in their individual READMEs.
 
-**IMPORTANT:** Installing and running the Kartotherian services requires Node 10.
+**IMPORTANT:** Installing and running the Kartotherian services requires Node 14.
