@@ -158,17 +158,8 @@ var toXML = function(data, callback) {
     vector_layers: data.vector_layers
   });
 
-  try {
-    return callback(null, new carto.Renderer().render(opts));
-  } catch(err) {
-    if (Array.isArray(err)) {
-        err.forEach(function(e) {
-            carto.writeError(e, options);
-        });
-    } else {
-      return callback(err);
-    }
-  }
+  const styleRender = new carto.Renderer().render(opts);
+  return callback(styleRender.msg, styleRender.data);
 };
 
 var TMSource = function(uri, callback) {

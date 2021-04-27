@@ -17,11 +17,11 @@
   "dependencies": {
     "@mapbox/tilelive-bridge": "^3.2.0",
     "js-yaml": "^3.2.5",
-    "carto": "^0.18.1",
+    "carto": "^1.2.0",
     "underscore": "^1.7.0",
     "mapnik-reference": "^8.7.0"
   },
   "peerDependencies": {
-    "mapnik": "~4.3.1"
+    "mapnik": "~4.5.8"
   }
 }

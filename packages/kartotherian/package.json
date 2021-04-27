@@ -55,10 +55,10 @@
     "domino": "^1.0.28",
     "express": "^4.16.4",
     "js-yaml": "^3.8.2",
-    "mapnik": "~4.3.1",
+    "mapnik": "~4.5.8",
     "node-pre-gyp": "^0.11.0",
     "preq": "^0.5.7",
-    "service-runner": "^2.6.10",
+    "service-runner": "~2.7.8",
     "tilelive-http": "~0.13.0"
   },
   "optionalDependencies": {

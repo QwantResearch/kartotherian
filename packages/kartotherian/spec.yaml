@@ -14,41 +14,41 @@ info:
 paths:
   # Tiles handler
   # /{src}/{z}/{x}/{y}.{format}:
-  /osm-intl/11/828/655.png:
-    get:
-      tags:
-        - kartotherian
-        - maps
-        - maptiles
-      description: Renders an image tile for the given source, zoom, and coordinates.
-      produces:
-        - image/png
-        - application/json
-        - application/x-protobuf
-      x-amples:
-        - title: get a tile in the middle of the ocean, with overzoom
-          response:
-            status: 200
-            headers:
-              content-type: image/png
+  # /osm-intl/11/828/655.png:
+  #   get:
+  #     tags:
+  #       - kartotherian
+  #       - maps
+  #       - maptiles
+  #     description: Renders an image tile for the given source, zoom, and coordinates.
+  #     produces:
+  #       - image/png
+  #       - application/json
+  #       - application/x-protobuf
+  #     x-amples:
+  #       - title: get a tile in the middle of the ocean, with overzoom
+  #         response:
+  #           status: 200
+  #           headers:
+  #             content-type: image/png
   # Tiles handler with scaling
   # /{src}/{z}/{x}/{y}@{scale}x.{format}:
-  /osm-intl/9/207/163@1.5x.png:
-    get:
-      tags:
-        - kartotherian
-        - maps
-        - maptiles
-      description: Renders an image tile for the given source, zoom, and coordinates, with scaling.
-      produces:
-        - image/png
-        - application/json
-      x-amples:
-        - title: default scaled tile
-          response:
-            status: 200
-            headers:
-              content-type: image/png
+  # /osm-intl/9/207/163@1.5x.png:
+  #   get:
+  #     tags:
+  #       - kartotherian
+  #       - maps
+  #       - maptiles
+  #     description: Renders an image tile for the given source, zoom, and coordinates, with scaling.
+  #     produces:
+  #       - image/png
+  #       - application/json
+  #     x-amples:
+  #       - title: default scaled tile
+  #         response:
+  #           status: 200
+  #           headers:
+  #             content-type: image/png
   # Source info
   # /{src}/info.json:
   /osm-intl/info.json:
@@ -100,21 +100,21 @@ paths:
         - image/png
   # Map snapshots
   # /img/{src},{z},{lat},{lon},{w}x{h}@{scale}x.{format}:
-  /img/osm-intl,1,0.0,0.0,100x100@1.5x.png:
-    get:
-      tags:
-        - kartotherian
-        - maps
-        - maptiles
-      description: Renders requested map region as a scaled image (static map snapshot)
-      produces:
-        - image/png
-      x-amples:
-        - title: Small scaled map
-          response:
-            status: 200
-            headers:
-              content-type: image/png
+  # /img/osm-intl,1,0.0,0.0,100x100@1.5x.png:
+  #   get:
+  #     tags:
+  #       - kartotherian
+  #       - maps
+  #       - maptiles
+  #     description: Renders requested map region as a scaled image (static map snapshot)
+  #     produces:
+  #       - image/png
+  #     x-amples:
+  #       - title: Small scaled map
+  #         response:
+  #           status: 200
+  #           headers:
+  #             content-type: image/png
   # /{src}/{z},{lat},{lon},{w}x{h}.{format}:
   /osm-intl/1,0.0,0.0,100x100.png:
     get:

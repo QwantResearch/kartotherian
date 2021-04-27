@@ -23,7 +23,7 @@ osm-intl:
   static: true
   maxheight: 2048
   maxwidth: 2048
-  uri: tmstyle://
+  uri: tmsource://
   yaml:
     npm: ["@kartotherian/osm-bright-style", "project.yml"]
   yamlSetParams:

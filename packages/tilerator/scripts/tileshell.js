@@ -124,7 +124,7 @@ const args = yargs
       type: 'string',
       nargs: 1,
       coerce: normalizePath,
-    }
+    },
   })
   .help('h')
   .alias('h', 'help')
